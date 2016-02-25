@@ -3,6 +3,9 @@ namespace app\base;
 
 abstract class Controller {
 
+    /**
+     * @var Response|null
+     */
     public $responce = null;
 
     abstract public function getAction($request);

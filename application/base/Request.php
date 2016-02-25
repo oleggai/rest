@@ -22,10 +22,16 @@ class Request {
      */
     public $format = 'json';
 
+    /**
+     * Инициализирует свойства
+     */
     public function __construct() {
         $this->url_elements = explode('/', $_SERVER['PATH_INFO']);
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->parseIncomingParams();
+        if(isset($this->parameters['format'])) {
+            $this->format = $this->parameters['format'];
+        }
         return true;
     }
 
