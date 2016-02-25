@@ -7,12 +7,25 @@ class Application {
 
     public function __construct() {
 
-        $request = new Request();
+        $s = DIRECTORY_SEPARATOR;
 
-        $controllerName = 'app\controllers\\'.ucfirst($request->url_elements[1])."Controller";
-        // Смотрим есть ли файл контроллера
-        // Если нет, возвращаем ошибку клиенту
-        $controller = new $controllerName();
+        $request = new Request();
+        $response = new Response();
+        $error = new Error();
+
+        $entityName = ucfirst($request->url_elements[1]);
+        $controllerName = 'app\controllers\\'.$entityName."Controller";
+        $pathToController = "application". $s ."controllers". $s .$entityName."Controller.php";
+        // Если нету файла запрашиваемой сущности, то возвращаем ошибку
+        if(!file_exists($pathToController)) {
+            $viewName = 'app\views\\'.ucfirst($request->format).'View';
+            $view = new $viewName();
+            $errorCode = '413';
+            $response->error_message = $error->getMessage($errorCode);
+            $response->error_code = $errorCode;
+            return $view->render($response);
+        }
+        $controller = new $controllerName($response);
         $method = $request->method.'Action';
 
         if(method_exists($controller, $method)) {
