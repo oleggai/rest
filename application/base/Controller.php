@@ -5,7 +5,7 @@ abstract class Controller {
 
     public $responce = null;
 
-    abstract public function getAction();
+    abstract public function getAction($request);
     abstract public function postAction();
     abstract public function putAction();
     abstract public function deleteAction();
