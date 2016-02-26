@@ -12,6 +12,10 @@ class Response {
      */
     public $message = '';
     /**
+     * @var integer Код ответа
+     */
+    public $responce_code;
+    /**
      * @var string Текст ошибки
      */
     public $error_message;
@@ -19,8 +23,5 @@ class Response {
      * @var integer Код ошибки
      */
     public $error_code;
-    /**
-     * @var integer Код ответа
-     */
-    public $responce_code;
+
 }
